@@ -12,8 +12,8 @@ using net_il_mio_fotoalbum.Database;
 namespace net_il_mio_fotoalbum.Migrations
 {
     [DbContext(typeof(PhotoContext))]
-    [Migration("20231011083934_IdentityTables")]
-    partial class IdentityTables
+    [Migration("20231011132611_CreateNewDb")]
+    partial class CreateNewDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -267,10 +267,9 @@ namespace net_il_mio_fotoalbum.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("Image")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()

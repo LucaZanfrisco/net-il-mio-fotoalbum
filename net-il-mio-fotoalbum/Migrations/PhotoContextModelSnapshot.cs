@@ -264,10 +264,9 @@ namespace net_il_mio_fotoalbum.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Image")
+                    b.Property<byte[]>("Image")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()

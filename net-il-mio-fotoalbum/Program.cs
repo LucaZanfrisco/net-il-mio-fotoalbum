@@ -12,6 +12,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<PhotoContext, PhotoContext>();
 
 var app = builder.Build();
 
