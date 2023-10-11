@@ -25,7 +25,7 @@
                         <div class="title">@photo.Title</div>
                         <ul class="list-unstyled action d-flex flex-column align-items-center justify-content-center gap-3">
                             <li>
-                                <a class="btn-action info"><i class="fa-solid fa-info"></i></a>
+                                <a class="btn-action info" asp-action="Detail" asp-controller="Photo" asp-route-id="@photo.Id"><i class="fa-solid fa-info"></i></a>
                             </li>
                             <li>
                                 <a class="btn-action edit"><i class="fa-solid fa-pen"></i></a>

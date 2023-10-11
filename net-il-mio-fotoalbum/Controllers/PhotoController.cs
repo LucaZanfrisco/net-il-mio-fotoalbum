@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.SqlServer.Server;
 using net_il_mio_fotoalbum.Database;
 using net_il_mio_fotoalbum.Models;
@@ -27,6 +28,22 @@ namespace net_il_mio_fotoalbum.Controllers
                 return View("Index", photos);
             }
 
+        }
+
+        [HttpGet]
+        public IActionResult Detail(int id)
+        {
+            using(_db)
+            {
+                Photo foundedPhoto = _db.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
+                if(foundedPhoto == null)
+                {
+                    return RedirectToAction("Index");
+                }
+
+                return View("Detail", foundedPhoto);
+            }
+                
         }
 
         [HttpGet]
