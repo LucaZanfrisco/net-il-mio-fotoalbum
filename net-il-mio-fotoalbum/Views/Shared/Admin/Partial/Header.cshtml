@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Identity;
+
+<header>
+    <nav class="container d-flex justify-content-between align-items-center">
+        <div>
+            <img src="~/img/logo-fotoalbum.jpg" alt="Logo foto album" id="logo"/>
+        </div>
+        <ul class="list-unstyled m-0 d-flex justify-content-center align-items-center gap-5">
+            <li><a class="link" asp-action="Index" asp-controller="Photo">Album</a></li>
+            <li><a class="link" asp-action="Index" asp-controller="Category">Categorie</a></li>
+        </ul>
+        <ul class="d-flex list-unstyled justify-content-between align-items-center m-0 gap-4">
+            <li>
+                <a id="manage" class="link fs-6" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity.Name!</a>
+            </li>
+            <li>
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="link fs-6">Esci</button>
+                </form>
+            </li>
+        </ul>
+        
+    </nav>
+</header>
