@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using Microsoft.SqlServer.Server;
 using net_il_mio_fotoalbum.Database;
 using net_il_mio_fotoalbum.Models;
@@ -12,7 +14,6 @@ namespace net_il_mio_fotoalbum.Controllers
 {
     public class PhotoController : Controller
     {
-
         private PhotoContext _db;
 
         public PhotoController(PhotoContext db)
@@ -23,12 +24,51 @@ namespace net_il_mio_fotoalbum.Controllers
         [Authorize(Roles = "ADMIN")]
         public IActionResult Index()
         {
+           
             using(_db)
             {
                 List<Photo> photos = _db.Photos.ToList();
-                return View("Index", photos);
+                List<Category> categories = _db.Categories.ToList();
+
+                PhotoFormModel model  = new PhotoFormModel()
+                {
+                    listCategories = categories,
+                    listPhotos = photos
+                };
+                return View("Index", model);
             }
 
+        }
+
+        [HttpPost]
+        public IActionResult Filter(int id)
+        {
+            List<Photo> photos = _db.Photos.ToList();
+            List<Category> categories = _db.Categories.ToList();
+            if(id != 0)
+            {
+               
+                using(_db)
+                {
+                    Category? category = _db.Categories.Where(category => category.Id == id).Include(category => category.Photos).FirstOrDefault();
+                    if(category != null)
+                    {
+                        PhotoFormModel data = new PhotoFormModel()
+                        {
+                            Category = category,
+                            listCategories = categories,
+                            listPhotos = category.Photos
+                        };
+                        return View("Index", data);
+                    }
+                }
+            }
+            PhotoFormModel model = new PhotoFormModel()
+            {
+                listCategories = categories,
+                listPhotos = photos
+            };
+            return View("Index", model);
         }
 
         [HttpGet]
