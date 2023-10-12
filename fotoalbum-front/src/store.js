@@ -30,8 +30,16 @@ export const store = reactive({
             text: this.textMessage,
         }).then(response => {
             this.responseStatus = response.status
+            this.textEmail = "";
+            this.textMessage = "";
+            setTimeout(() => {
+                this.responseStatus = 0;
+            }, 2000);
         }).catch(error =>{
             this.responseStatus = error.response.status
+            setTimeout(() => {
+                this.responseStatus = 0;
+            }, 2000);
         })
     }
 })
