@@ -2,7 +2,21 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using net_il_mio_fotoalbum.Database;
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(o => // https://learn.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-7.0
+{
+    o.AddDefaultPolicy(policy =>
+    {
+        policy.WithMethods("POST", "PUT", "GET", "OPTIONS");
+        policy.WithOrigins("https://localhost:5173");
+        //policy.AllowAnyOrigin();
+        //policy.AllowAnyHeader();
+    });
+});
+
 
 builder.Services.AddDbContext<PhotoContext>();
 
@@ -28,6 +42,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthentication();
 

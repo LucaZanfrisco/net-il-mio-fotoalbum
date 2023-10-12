@@ -4,9 +4,8 @@
             <div><img src="../../public/logo-fotoalbum.jpg" alt="Logo" class="img-fluid"></div>
             <ul class="list-unstyled d-flex align-items-center gap-3 m-0">
                 <li>Home</li>
-                <li>Chi siamo</li>
                 <li>Contatti</li>
-                <li>Dashboard</li>
+                <li><a href="https://localhost:7069/">Dashboard</a></li>
             </ul>
             <div>
                 <input type="text" name="filter" placeholder="Filtra le foto per nome" class="form-control">
@@ -37,6 +36,14 @@ header {
     div{
         img{
             height: 75px;
+        }
+    }
+    a{
+        text-decoration: none;
+        color: black;
+        &:hover{
+            cursor: pointer;
+            color: red;
         }
     }
 }
