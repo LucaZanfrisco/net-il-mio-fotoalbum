@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "Admin/_Layout";
+    // ViewData["Title"] = $"Edit photo {Model.Photos.Title}";
+}
+@model PhotoFormModel
+<div class="container">
+    <h1 class="text-center fw-bold">Aggiungi una nuova foto</h1>
+    <form asp-action="Edit" asp-controller="Photo" asp-route-id="@Model.Photos.Id" method="post" class="text-center mt-4 w-50 mx-auto" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <div class="my-2">
+            <label class="form-label fs-4 fw-bold">Immagine</label>
+            <input asp-for="ImageFile" type="file" class="form-control" />
+            <span asp-validation-for="ImageFile" class="alert-danger"></span>
+        </div>
+        <div class="my-2">
+            <label class="form-label fs-4 fw-bold">Titolo</label>
+            <input asp-for="Photos.Title" type="text" class="form-control" />
+            <span asp-validation-for="Photos.Title" class="alert-danger"></span>
+        </div>
+        <div class="my-2">
+            <label class="form-label fs-4 fw-bold">Descrizione</label>
+            <input asp-for="Photos.Description" type="text" class="form-control" />
+            <span asp-validation-for="Photos.Description" class="alert-danger"></span>
+        </div>
+        <div class="my-2">
+            <label class="form-label fs-4 fw-bold" fs-4 fw-bold">Visibile</label>
+            <select class="form-select" asp-for="Photos.Visible">
+                <option value="" selected disabled>Seleziona l'opzione di visibilità dell immagine</option>
+                <option value="true">Visibile</option>
+                <option value="false">Nascosta</option>
+            </select>
+            <span asp-validation-for="Photos.Visible" class="alert-danger"></span>
+        </div>
+        <div class="my-2">
+            <label class="form-label fs-4 fw-bold">Categorie</label>
+            <select asp-for="SelectedCategories" multiple asp-items="@Model.Categories" size="5" class="form-select"></select>
+            <span asp-validation-for="SelectedCategories" class="alert-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Conferma</button>
+    </form>
+</div>
