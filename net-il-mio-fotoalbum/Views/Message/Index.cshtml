@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "Admin/_Layout";
+    ViewData["Title"] = "Sezione Messaggi";
+}
+@model List<Message>
+<div class="container">
+    <h1 class="fw-bold text-center">Messaggi</h1>
+    @foreach(Message message in Model)
+    {
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#button-@(message.Id)" aria-expanded="true" aria-controls="collapseOne">
+                    @message.Email
+                </button>
+
+            </h2>
+            <div id="button-@(message.Id)" class="accordion-collapse collapse show px-2" data-bs-parent="#accordionExample">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="accordion-body">
+                        <strong>@message.Text</strong>
+                    </div>
+                    <button type="button" class="btn-action delete" data-bs-toggle="modal" data-bs-target="#delete-@(message.Id)"><i class="fa-solid fa-trash"></i></button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="modal fade" id="delete-@(message.Id)" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Conferma Eliminazione</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Conferma di voler cancellare la foto n @message.Id : @message.Text ?
+                    </div>
+                    <div class="modal-footer">
+                        <form asp-action="Delete" asp-controller="Message" asp-route-id="@message.Id" method="post">
+                            @Html.AntiForgeryToken()
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Chiudi</button>
+                            <button type="submit" class="btn btn-danger">Cancella</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
