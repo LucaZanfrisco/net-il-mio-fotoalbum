@@ -7,7 +7,7 @@ namespace net_il_mio_fotoalbum.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Il campo NOME è obbligatorio")]
         [StringLength(50, ErrorMessage ="Lunghezza massima 50 caratteri")]
         public string Name { get; set; }
 

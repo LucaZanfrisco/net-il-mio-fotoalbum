@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "Admin/_Layout";
+    ViewData["Title"] = "Crea nuova categoria";
+}
+@model Category
+<div class="container">
+    <h1 class="text-center fw-bold">Aggiungi una nuova categoria</h1>
+    <form asp-action="Create" asp-controller="Category" method="post" class="text-center mt-4 w-50 mx-auto">
+        <div class="my-2">
+            <label class="form-label fs-4 fw-bold">Nome</label>
+            <input type="text" asp-for="Name" class="form-control"/>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-success">Conferma</button>
+    </form>
+</div>

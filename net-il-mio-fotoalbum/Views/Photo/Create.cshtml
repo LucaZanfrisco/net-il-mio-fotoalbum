@@ -10,17 +10,17 @@
         <div class="my-2">
             <label class="form-label fs-4 fw-bold">Immagine</label>
             <input asp-for="ImageFile" type="file" class="form-control" />
-            <span asp-validation-for="Photos.Image" class="alert-danger"></span>
+            <span asp-validation-for="Photos.Image" class="text-danger"></span>
         </div>
         <div class="my-2">
             <label class="form-label fs-4 fw-bold">Titolo</label>
             <input asp-for="Photos.Title" type="text" class="form-control" />
-            <span asp-validation-for="Photos.Title" class="alert-danger"></span>
+            <span asp-validation-for="Photos.Title" class="text-danger"></span>
         </div>
         <div class="my-2">
             <label class="form-label fs-4 fw-bold">Descrizione</label>
             <input asp-for="Photos.Description" type="text" class="form-control" />
-            <span asp-validation-for="Photos.Description" class="alert-danger"></span>
+            <span asp-validation-for="Photos.Description" class="text-danger"></span>
         </div>
         <div class="my-2">
             <label class="form-label fs-4 fw-bold" fs-4 fw-bold">Visibile</label>
@@ -29,12 +29,12 @@
                 <option value="true">Visibile</option>
                 <option value="false">Nascosta</option>
             </select>
-            <span asp-validation-for="Photos.Visible" class="alert-danger"></span>
+            <span asp-validation-for="Photos.Visible" class="text-danger"></span>
         </div>
         <div class="my-2">
             <label class="form-label fs-4 fw-bold">Categorie</label>
             <select asp-for="SelectedCategories" multiple asp-items="@Model.Categories" size="5" class="form-select"></select>
-            <span asp-validation-for="SelectedCategories" class="alert-danger"></span>
+            <span asp-validation-for="SelectedCategories" class="text-danger"></span>
         </div>
         <button type="submit" class="btn btn-success">Conferma</button>
     </form>
