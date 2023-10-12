@@ -208,5 +208,26 @@ namespace net_il_mio_fotoalbum.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(int id)
+        {
+            using(_db)
+            {
+                Photo? deletePhoto = _db.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
+                if(deletePhoto != null)
+                {
+                    _db.Photos.Remove(deletePhoto);
+                    _db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+        }
     }
 }
