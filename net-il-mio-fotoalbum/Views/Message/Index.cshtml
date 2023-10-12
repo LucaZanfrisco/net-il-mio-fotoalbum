@@ -2,7 +2,9 @@
     Layout = "Admin/_Layout";
     ViewData["Title"] = "Sezione Messaggi";
 }
+@using Microsoft.AspNetCore.Identity
 @model List<Message>
+
 <div class="container">
     <h1 class="fw-bold text-center">Messaggi</h1>
     @foreach(Message message in Model)
@@ -46,5 +48,5 @@
             </div>
         </div>
     }
-
+    <div></div>
 </div>

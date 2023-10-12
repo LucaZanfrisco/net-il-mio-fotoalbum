@@ -9,6 +9,8 @@ using net_il_mio_fotoalbum.Database;
 using net_il_mio_fotoalbum.Models;
 using NuGet.Protocol.Plugins;
 using System.Runtime.ConstrainedExecution;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace net_il_mio_fotoalbum.Controllers
 {
@@ -27,7 +29,10 @@ namespace net_il_mio_fotoalbum.Controllers
            
             using(_db)
             {
-                List<Photo> photos = _db.Photos.ToList();
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var id = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
+                List<Photo> photos = _db.Photos.Where(photo => photo.UserId == id.Value).ToList();
                 //List<Category> categories = _db.Categories.ToList();
 
                 //PhotoFormModel model  = new PhotoFormModel()
@@ -74,9 +79,11 @@ namespace net_il_mio_fotoalbum.Controllers
         [HttpGet]
         public IActionResult Detail(int id)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             using(_db)
             {
-                Photo foundedPhoto = _db.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
+                Photo foundedPhoto = _db.Photos.Where(photo => photo.Id == id).Where(photo => photo.UserId == userId.Value).Include(photo => photo.Categories).FirstOrDefault();
                 if(foundedPhoto == null)
                 {
                     return RedirectToAction("Index");
@@ -116,7 +123,8 @@ namespace net_il_mio_fotoalbum.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(PhotoFormModel data)
         {
-
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             if(!ModelState.IsValid)
             {
                 using(_db)
@@ -149,6 +157,7 @@ namespace net_il_mio_fotoalbum.Controllers
                         data.Photos.Categories.Add(category);
                     }
                 }
+                data.Photos.UserId = userId.Value;
                 _db.Photos.Add(data.Photos);
                 _db.SaveChanges();
                 return RedirectToAction("Index");
