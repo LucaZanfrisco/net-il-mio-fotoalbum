@@ -22,7 +22,7 @@ namespace net_il_mio_fotoalbum.Controllers.API
         {
             using(_db)
             {
-                List<Photo> photos = _db.Photos.ToList();
+                List<Photo> photos = _db.Photos.Where(photo => photo.Visible == true).ToList();
                 if(photos != null)
                 {
                     return Ok(photos);
@@ -30,7 +30,30 @@ namespace net_il_mio_fotoalbum.Controllers.API
             }
 
             return Ok(new {result = false, Message = "Errore nella risposta"});
-        } 
+        }
 
+        [HttpGet]
+        public IActionResult GetPhotosByTitle(string? search)
+        {
+            if(search == null)
+            {
+                List<Photo> photos = _db.Photos.Where(photo => photo.Visible == true).ToList();
+                return Ok(photos);
+            }
+
+            using(_db)
+            {
+                List<Photo>? photo = _db.Photos.Where(photo => photo.Title.ToLower().Contains(search.ToLower()) && photo.Visible == true).ToList();
+                if(photo != null) 
+                {
+                    return Ok(photo);
+                }
+                else
+                {
+                    return Ok(new { result = false, Message = "Nessuna foto trovata" });
+                }
+    
+            }
+        }
     }
 }

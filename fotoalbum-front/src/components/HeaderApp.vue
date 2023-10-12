@@ -8,19 +8,21 @@
                 <li><a href="https://localhost:7069/">Dashboard</a></li>
             </ul>
             <div>
-                <input type="text" name="filter" placeholder="Filtra le foto per nome" class="form-control">
+                <input v-model="store.searchText" @keyup="store.searchPhoto()" type="text" name="filter" placeholder="Filtra le foto per nome" class="form-control">
             </div>
         </div>
     </header>
 </template>
 <script>
+
+import { store } from '../store.js'
 export default {
     name: 'HeaderApp',
     data() {
         return {
-
+            store
         }
-    }
+    },
 }
 </script>
 <style lang="scss" scoped>

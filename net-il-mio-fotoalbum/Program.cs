@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using net_il_mio_fotoalbum.Database;
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+//var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ builder.Services.AddCors(o => // https://learn.microsoft.com/en-us/aspnet/core/s
     o.AddDefaultPolicy(policy =>
     {
         policy.WithMethods("POST", "PUT", "GET", "OPTIONS");
-        policy.WithOrigins("https://localhost:5173");
+        policy.WithOrigins("http://localhost:5173");
         //policy.AllowAnyOrigin();
         //policy.AllowAnyHeader();
     });

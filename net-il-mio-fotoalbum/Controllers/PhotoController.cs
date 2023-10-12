@@ -28,48 +28,48 @@ namespace net_il_mio_fotoalbum.Controllers
             using(_db)
             {
                 List<Photo> photos = _db.Photos.ToList();
-                List<Category> categories = _db.Categories.ToList();
+                //List<Category> categories = _db.Categories.ToList();
 
-                PhotoFormModel model  = new PhotoFormModel()
-                {
-                    listCategories = categories,
-                    listPhotos = photos
-                };
-                return View("Index", model);
+                //PhotoFormModel model  = new PhotoFormModel()
+                //{
+                //    listCategories = categories,
+                //    listPhotos = photos
+                //};
+                return View("Index", photos);
             }
 
         }
 
-        [HttpPost]
-        public IActionResult Filter(int id)
-        {
-            List<Photo> photos = _db.Photos.ToList();
-            List<Category> categories = _db.Categories.ToList();
-            if(id != 0)
-            {
+        //[HttpPost]
+        //public IActionResult Filter(int id)
+        //{
+        //    List<Photo> photos = _db.Photos.ToList();
+        //    List<Category> categories = _db.Categories.ToList();
+        //    if(id != 0)
+        //    {
                
-                using(_db)
-                {
-                    Category? category = _db.Categories.Where(category => category.Id == id).Include(category => category.Photos).FirstOrDefault();
-                    if(category != null)
-                    {
-                        PhotoFormModel data = new PhotoFormModel()
-                        {
-                            Category = category,
-                            listCategories = categories,
-                            listPhotos = category.Photos
-                        };
-                        return View("Index", data);
-                    }
-                }
-            }
-            PhotoFormModel model = new PhotoFormModel()
-            {
-                listCategories = categories,
-                listPhotos = photos
-            };
-            return View("Index", model);
-        }
+        //        using(_db)
+        //        {
+        //            Category? category = _db.Categories.Where(category => category.Id == id).Include(category => category.Photos).FirstOrDefault();
+        //            if(category != null)
+        //            {
+        //                PhotoFormModel data = new PhotoFormModel()
+        //                {
+        //                    Category = category,
+        //                    listCategories = categories,
+        //                    listPhotos = category.Photos
+        //                };
+        //                return View("Index", data);
+        //            }
+        //        }
+        //    }
+        //    PhotoFormModel model = new PhotoFormModel()
+        //    {
+        //        listCategories = categories,
+        //        listPhotos = photos
+        //    };
+        //    return View("Index", model);
+        //}
 
         [HttpGet]
         public IActionResult Detail(int id)
