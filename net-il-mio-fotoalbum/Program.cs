@@ -12,8 +12,8 @@ builder.Services.AddCors(o => // https://learn.microsoft.com/en-us/aspnet/core/s
     {
         policy.WithMethods("POST", "PUT", "GET", "OPTIONS");
         policy.WithOrigins("http://localhost:5173");
-        //policy.AllowAnyOrigin();
-        //policy.AllowAnyHeader();
+        policy.AllowAnyOrigin();
+        policy.AllowAnyHeader();
     });
 });
 

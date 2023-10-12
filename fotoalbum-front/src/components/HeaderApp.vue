@@ -23,6 +23,8 @@
   </div>
   <div class="offcanvas-body">
     <form action="" method="post">
+        <div v-if="store.responseStatus === 400" class="alert alert-danger">Compilare tutti i campi</div>
+        <div v-if="store.responseStatus === 200" class="alert alert-success">Messagio inviato con successo</div>
         <div class="my-2">
             <label for="email" class="form-label fs-4 fw-bold">Email</label>
             <input type="email" name="email" class="form-control" v-model="store.textEmail">

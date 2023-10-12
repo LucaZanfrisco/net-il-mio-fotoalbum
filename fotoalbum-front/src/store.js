@@ -6,6 +6,7 @@ export const store = reactive({
     photoList: [],
     textEmail: "",
     textMessage: "",
+    responseStatus: 0,
     searchPhoto(){
         axios.get('https://localhost:7069/api/PhotoApi/GetPhotosByTitle', {
             params: {
@@ -24,11 +25,13 @@ export const store = reactive({
             })
     },
     sendMessage(){
-        axios.post("https://localhost:7069/api/PhotoApi/Message", {
+        axios.post("https://localhost:7069/api/MessageApi/SendMessage", {
             email: this.textEmail,
-            message: this.textMessage,
+            text: this.textMessage,
         }).then(response => {
-            console.log(response)
+            this.responseStatus = response.status
+        }).catch(error =>{
+            this.responseStatus = error.response.status
         })
     }
 })
