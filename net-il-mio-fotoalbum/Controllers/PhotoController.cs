@@ -169,9 +169,11 @@ namespace net_il_mio_fotoalbum.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             using(_db)
             {
-                Photo? foundedPhoto = _db.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
+                Photo? foundedPhoto = _db.Photos.Where(photo => photo.Id == id).Where(photo => photo.UserId == userId.Value).Include(photo => photo.Categories).FirstOrDefault();
 
                 if(foundedPhoto != null)
                 {
