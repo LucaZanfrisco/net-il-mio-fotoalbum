@@ -234,10 +234,10 @@ namespace net_il_mio_fotoalbum.Controllers
                 MemoryStream stream = new MemoryStream();
                 editPhoto.ImageFile.CopyTo(stream);
                 editPhoto.Photos.Image = stream.ToArray();
+                dbPhoto.Categories.Clear();
 
                 if(editPhoto.SelectedCategories != null)
                 {
-                    dbPhoto.Categories.Clear();
                     foreach(string selectCategory in editPhoto.SelectedCategories)
                     {
                         int categoryId = int.Parse(selectCategory);

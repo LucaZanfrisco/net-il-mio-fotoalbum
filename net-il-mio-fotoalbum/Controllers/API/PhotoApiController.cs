@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using net_il_mio_fotoalbum.Database;
 using net_il_mio_fotoalbum.Models;
 
@@ -54,6 +55,21 @@ namespace net_il_mio_fotoalbum.Controllers.API
                 }
     
             }
+        }
+
+        [HttpGet]
+        public IActionResult GetPhotoById(int id)
+        {
+            using(_db)
+            {
+                Photo? photo = _db.Photos.Where(photo => photo.Id == id).Include(photo => photo.Categories).FirstOrDefault();
+
+                if(photo != null)
+                {
+                    return Ok(photo);
+                }
+            }
+            return BadRequest();
         }
     }
 }

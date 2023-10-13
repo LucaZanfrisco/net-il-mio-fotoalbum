@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between align-items-center h-100 container">
             <div><img src="../../public/logo-fotoalbum.jpg" alt="Logo" class="img-fluid"></div>
             <ul class="list-unstyled d-flex align-items-center gap-3 m-0">
-                <li>Home</li>
+                <li><router-link :to="{name: 'Home'}">Home</router-link></li>
                 <li>Contatti</li>
                 <li><a href="https://localhost:7069/">Dashboard</a></li>
                 <li> 

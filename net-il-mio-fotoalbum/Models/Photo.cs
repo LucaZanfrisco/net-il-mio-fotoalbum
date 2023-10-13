@@ -1,5 +1,6 @@
 ﻿using net_il_mio_fotoalbum.Validation;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace net_il_mio_fotoalbum.Models
 {

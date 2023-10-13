@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace net_il_mio_fotoalbum.Models
 {
@@ -11,6 +12,7 @@ namespace net_il_mio_fotoalbum.Models
         [StringLength(50, ErrorMessage ="Lunghezza massima 50 caratteri")]
         public string Name { get; set; }
 
+        [JsonIgnore]
         public List<Photo>? Photos { get; set; }
 
         public Category() { }

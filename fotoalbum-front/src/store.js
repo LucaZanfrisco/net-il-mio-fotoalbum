@@ -7,6 +7,7 @@ export const store = reactive({
     textEmail: "",
     textMessage: "",
     responseStatus: 0,
+    photoDetail: {},
     searchPhoto(){
         axios.get('https://localhost:7069/api/PhotoApi/GetPhotosByTitle', {
             params: {
@@ -40,6 +41,17 @@ export const store = reactive({
             setTimeout(() => {
                 this.responseStatus = 0;
             }, 2000);
+        })
+    },
+    getPhotoDetail(photoId){
+        axios.get('https://localhost:7069/api/PhotoApi/GetPhotoById',{
+            params: {
+                id: photoId
+            }
+        }).then(response => {
+            this.photoDetail = response.data
+        }).catch(error => {
+            console.log(error)
         })
     }
 })
